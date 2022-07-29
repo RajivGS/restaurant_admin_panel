@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/config/responsive.dart';
 import 'package:restaurant_admin_panel/model/category_model.dart';
 import 'package:restaurant_admin_panel/model/product_model.dart';
 import 'package:restaurant_admin_panel/widgets/product_list_tile.dart';
 
+import '../blocs/category_bloc/category_bloc.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
 import '../widgets/custom_list-tile.dart';
@@ -91,22 +93,37 @@ class MenuScreen extends StatelessWidget {
         ));
   }
 
-  Container buildCategories(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20.0),
-      color: Theme.of(context).colorScheme.background,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Categories', style: Theme.of(context).textTheme.headline4),
-          const SizedBox(height: 20),
-          ...CategoryModel.categories.map((category) {
-            return CustomListTile(
-              category: category,
-            );
-          }).toList(),
-        ],
-      ),
+  BlocBuilder<CategoryBloc, CategoryState> buildCategories(
+      BuildContext context) {
+    return BlocBuilder<CategoryBloc, CategoryState>(
+      builder: (context, state) {
+        if (state is CategoryLoading) {
+          return Center(
+            child: CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.primary),
+          );
+        } else if (state is CategoryLoaded) {
+          return Container(
+            padding: const EdgeInsets.all(20.0),
+            color: Theme.of(context).colorScheme.background,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Categories',
+                    style: Theme.of(context).textTheme.headline4),
+                const SizedBox(height: 20),
+                ...CategoryModel.categories.map((category) {
+                  return CustomListTile(
+                    category: category,
+                  );
+                }).toList(),
+              ],
+            ),
+          );
+        } else {
+          return const Text("Error");
+        }
+      },
     );
   }
 
