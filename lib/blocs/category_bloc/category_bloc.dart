@@ -20,8 +20,21 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     emit(CategoryLoaded(categories: event.categories));
   }
 
-  void _onSortCategories(SortCategories event, Emitter<CategoryState> emit) {
+  void _onSortCategories(
+      SortCategories event, Emitter<CategoryState> emit) async {
     final state = this.state as CategoryLoaded;
+    emit(CategoryLoading());
+    await Future<void>.delayed(const Duration(seconds: 1));
+
+    int newIndex =
+        (event.newIndex > event.oldIndex) ? event.newIndex - 1 : event.newIndex;
+    try {
+      CategoryModel selectCategories = state.categories[event.oldIndex];
+      List<CategoryModel> sortedCategories = List.from(state.categories)
+        ..remove(selectCategories)
+        ..insert(newIndex, selectCategories);
+      emit(CategoryLoaded(categories: sortedCategories));
+    } catch (_) {}
   }
 
   void _onSelectCategories(

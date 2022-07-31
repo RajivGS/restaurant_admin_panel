@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurant_admin_panel/blocs/product_bloc/product_bloc.dart';
 import 'package:restaurant_admin_panel/config/responsive.dart';
 import 'package:restaurant_admin_panel/model/category_model.dart';
 import 'package:restaurant_admin_panel/model/product_model.dart';
@@ -118,11 +119,16 @@ class MenuScreen extends StatelessWidget {
                           index++)
                         CategoryListTile(
                           category: state.categories[index],
-                          onTap: (() {}),
+                          onTap: (() {
+                            //click to select the category
+                          }),
                           key: ValueKey(state.categories[index].id),
                         ),
                     ],
-                    onReorder: ((oldIndex, newIndex) {}));
+                    onReorder: ((oldIndex, newIndex) {
+                      context.read<CategoryBloc>().add(SortCategories(
+                          oldIndex: oldIndex, newIndex: newIndex));
+                    }));
               } else {
                 return const Text("Error");
               }
@@ -140,9 +146,35 @@ Container _buildProduct(BuildContext context) {
       children: [
         Text("Products", style: Theme.of(context).textTheme.headline4),
         const SizedBox(height: 20),
-        ...ProductModel.products.map((product) {
-          return ProductListTile(product: product);
-        })
+        //...ProductModel.products.map((product) {
+        //    return ProductListTile(product: product);
+        //  }),
+        BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
+          if (state is ProductLoading) {
+            return Center(
+                child: CircularProgressIndicator(
+                    color: Theme.of(context).colorScheme.primary));
+          } else if (state is ProductLoaded) {
+            return ReorderableListView(
+                shrinkWrap: true,
+                children: [
+                  for (int index = 0; index < state.products.length; index++)
+                    ProductListTile(
+                      product: state.products[index],
+                      onTap: (() {
+                        //click to select the category
+                      }),
+                      key: ValueKey(state.products[index].id),
+                    ),
+                ],
+                onReorder: ((oldIndex, newIndex) {
+                  context.read<ProductBloc>().add(
+                      SortProducts(oldIndex: oldIndex, newIndex: newIndex));
+                }));
+          } else {
+            return const Text("Error");
+          }
+        }),
       ],
     ),
   );

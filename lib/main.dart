@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_admin_panel/blocs/blocs.dart';
 import 'package:restaurant_admin_panel/model/category_model.dart';
+import 'package:restaurant_admin_panel/model/product_model.dart';
 
 import 'config/theme.dart';
 import 'screens/menu_screen.dart';
@@ -22,6 +23,11 @@ class MyApp extends StatelessWidget {
           create: (context) => CategoryBloc()
             ..add(LoadCategories(categories: CategoryModel.categories)),
         ),
+        BlocProvider(
+          create: (context) =>
+              ProductBloc(categoryBloc: BlocProvider.of<CategoryBloc>(context))
+                ..add(LoadProducts(products: ProductModel.products)),
+        )
       ],
       child: MaterialApp(
         scrollBehavior: MyCustomScrollBehavior(),
