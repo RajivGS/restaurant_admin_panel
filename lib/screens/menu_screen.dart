@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/blocs/product_bloc/product_bloc.dart';
 import 'package:restaurant_admin_panel/config/responsive.dart';
-import 'package:restaurant_admin_panel/model/category_model.dart';
 import 'package:restaurant_admin_panel/model/product_model.dart';
 import 'package:restaurant_admin_panel/widgets/product_list_tile.dart';
 
