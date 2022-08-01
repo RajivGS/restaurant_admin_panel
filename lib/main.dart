@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               ProductBloc(categoryBloc: BlocProvider.of<CategoryBloc>(context))
-                ..add(LoadProducts(products: ProductModel.products)),
+                ..add(LoadProducts(productsModel: ProductModel.products)),
         )
       ],
       child: MaterialApp(

@@ -15,12 +15,12 @@ class LoadCategories extends CategoryEvent {
   List<Object> get props => [categories];
 }
 
-class SelectCategories extends CategoryEvent {
-  final CategoryModel categoryModel;
-  const SelectCategories(this.categoryModel);
+class SelectCategory extends CategoryEvent {
+  final CategoryModel category;
+  const SelectCategory(this.category);
 
   @override
-  List<Object> get props => [categoryModel];
+  List<Object> get props => [category];
 }
 
 class SortCategories extends CategoryEvent {

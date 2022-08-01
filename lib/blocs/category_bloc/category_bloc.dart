@@ -11,7 +11,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   CategoryBloc() : super(CategoryLoading()) {
     on<LoadCategories>(_onLoadCategories);
     on<SortCategories>(_onSortCategories);
-    on<SelectCategories>(_onSelectCategories);
+    on<SelectCategory>(_onSelectCategories);
   }
 
   void _onLoadCategories(
@@ -38,5 +38,13 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   }
 
   void _onSelectCategories(
-      SelectCategories event, Emitter<CategoryState> emit) {}
+    SelectCategory event,
+    Emitter<CategoryState> emit,
+  ) {
+    final state = this.state as CategoryLoaded;
+    emit(CategoryLoaded(
+      categories: state.categories,
+      selectedCategory: event.category,
+    ));
+  }
 }

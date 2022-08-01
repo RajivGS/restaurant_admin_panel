@@ -121,6 +121,9 @@ class MenuScreen extends StatelessWidget {
                           category: state.categories[index],
                           onTap: (() {
                             //click to select the category
+                            context
+                                .read<CategoryBloc>()
+                                .add(SelectCategory(state.categories[index]));
                           }),
                           key: ValueKey(state.categories[index].id),
                         ),
@@ -146,9 +149,6 @@ Container _buildProduct(BuildContext context) {
       children: [
         Text("Products", style: Theme.of(context).textTheme.headline4),
         const SizedBox(height: 20),
-        //...ProductModel.products.map((product) {
-        //    return ProductListTile(product: product);
-        //  }),
         BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
           if (state is ProductLoading) {
             return Center(

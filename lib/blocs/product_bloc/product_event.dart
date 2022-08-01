@@ -8,23 +8,23 @@ abstract class ProductEvent extends Equatable {
 }
 
 class LoadProducts extends ProductEvent {
-  final List<ProductModel> products;
+  final List<ProductModel> productsModel;
   const LoadProducts({
-    this.products = const <ProductModel>[],
+    this.productsModel = const <ProductModel>[],
   });
 
   @override
-  List<Object> get props => [products];
+  List<Object> get props => [productsModel];
 }
 
 class UpdateProducts extends ProductEvent {
-  final List<CategoryModel> category;
+  final CategoryModel categoryModel;
   const UpdateProducts({
-    this.category = const <CategoryModel>[],
+    required this.categoryModel,
   });
 
   @override
-  List<Object> get props => [category];
+  List<Object> get props => [categoryModel];
 }
 
 class SortProducts extends ProductEvent {

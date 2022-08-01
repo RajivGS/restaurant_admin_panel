@@ -11,12 +11,10 @@ class CategoryLoading extends CategoryState {}
 
 class CategoryLoaded extends CategoryState {
   final List<CategoryModel> categories; // list of categoeis
-  final Category? selectedCategory; // category that  user can select
+  final CategoryModel? selectedCategory; // category that  user can select
 
-  const CategoryLoaded({
-    this.categories = const <CategoryModel>[],
-    this.selectedCategory,
-  });
+  const CategoryLoaded(
+      {this.categories = const <CategoryModel>[], this.selectedCategory});
 
   @override
   List<Object?> get props => [categories, selectedCategory];
