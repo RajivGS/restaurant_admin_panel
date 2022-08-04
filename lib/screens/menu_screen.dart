@@ -68,7 +68,7 @@ class MenuScreen extends StatelessWidget {
                               const SizedBox(height: 20),
                               _buildProduct(context),
                             ]),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 30),
                       Container(
                         width: double.infinity,
                         constraints: const BoxConstraints(minHeight: 75),

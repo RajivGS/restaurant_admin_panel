@@ -30,6 +30,7 @@ class CustomLayout extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   ...widgets,
+                  const SizedBox(height: 20),
                   Container(
                     width: double.infinity,
                     constraints: const BoxConstraints(minHeight: 75),
@@ -43,6 +44,7 @@ class CustomLayout extends StatelessWidget {
             ),
           ),
         ),
+        const SizedBox(height: 20),
         Responsive.isWideDesktop(context) || Responsive.isDesktop(context)
             ? Expanded(
                 child: Container(
