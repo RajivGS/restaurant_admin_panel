@@ -7,6 +7,14 @@ abstract class ProductEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class AddProducts extends ProductEvent {
+  final ProductModel productsModel;
+  const AddProducts({required this.productsModel});
+
+  @override
+  List<Object> get props => [productsModel];
+}
+
 class LoadProducts extends ProductEvent {
   final List<ProductModel> productsModel;
   const LoadProducts({
